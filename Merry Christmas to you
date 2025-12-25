@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merry Christmas 🎄</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #020824;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .phone {
+      width: 320px;
+      height: 640px;
+      max-width: 90vw;
+      max-height: 90vh;
+      background: linear-gradient(#051735, #031024);
+      border-radius: 30px;
+      padding: 18px 14px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      padding: 60px 20px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+    }
+
+    /* Clouds */
+    .cloud {
+      position: absolute;
+      background: #f6f7fb;
+      border-radius: 40px;
+      box-shadow: 20px 10px 0 #f6f7fb, -22px 10px 0 #f6f7fb;
+      width: 90px;
+      height: 40px;
+      top: 26px;
+      animation: floatCloud 10s linear infinite;
+      opacity: 0.96;
+    }
+    .cloud.small {
+      width: 70px;
+      left: 10%;
+      animation-duration: 11s;
+    }
+    .cloud.big {
+      right: 5%;
+      animation-duration: 13s;
+    }
+
+    @keyframes floatCloud {
+      0% { transform: translateX(-20px); }
+      50% { transform: translateX(20px); }
+      100% { transform: translateX(-20px); }
+    }
+
+    /* Snow */
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      width: 4px;
+      height: 4px;
+      background: #ffffff;
+      border-radius: 50%;
+      opacity: 0.9;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(680px); opacity: 0; }
+    }
+
+    /* Dog avatar */
+    .avatar-wrap {
+      margin-top: 40px;
+      width: 120px;
+      height: 120px;
+      border-radius: 60px;
+      background: #fefefe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      animation: floatDog 2.4s ease-in-out infinite;
+    }
+
+    .avatar-wrap img {
+      width: 110%;
+      height: 110%;
+      object-fit: cover;
+    }
+
+    .santa-hat {
+      position: absolute;
+      top: -18px;
+      left: 8px;
+      width: 70px;
+      transform: rotate(-10deg);
+    }
+
+    @keyframes floatDog {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 26px;
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* Loading bar */
+    .loader {
+      margin-top: 40px;
+      width: 70%;
+      max-width: 220px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .loader span {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #ff8fb1, #ffd76f, #8ef3ff);
+      width: 40%;
+      animation: loadAnim 1.7s ease-in-out infinite;
+    }
+
+    @keyframes loadAnim {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(30%); }
+      100% { transform: translateX(120%); }
+    }
+
+    .bottom-text {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 11px;
+      opacity: 0.75;
+    }
+
+    /* Second screen */
+    .wish-card {
+      margin-top: 70px;
+      padding: 18px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      text-align: left;
+      width: 90%;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .wish-card h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .wish-card p {
+      margin-bottom: 4px;
+    }
+
+    .signature {
+      margin-top: 14px;
+      font-size: 12px;
+      opacity: 0.9;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <!-- Snowflakes -->
+    <script>
+      // create snowflakes dynamically
+      document.addEventListener("DOMContentLoaded", () => {
+        const phone = document.querySelector(".phone");
+        for (let i = 0; i < 35; i++) {
+          const flake = document.createElement("div");
+          flake.className = "snowflake";
+          flake.style.left = Math.random() * 100 + "%";
+          flake.style.animationDuration = 4 + Math.random() * 4 + "s";
+          flake.style.animationDelay = Math.random() * 5 + "s";
+          phone.appendChild(flake);
+        }
+      });
+    </script>
+
+    <!-- Screen 1: loading -->
+    <div class="screen" id="screen1">
+      <div class="cloud small"></div>
+      <div class="cloud big"></div>
+
+      <div class="avatar-wrap">
+        <!-- Dog / cat image (feel free to change URL) -->
+        <img src="https://images.pexels.com/photos/19061598/pexels-photo-19061598.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cute dog" />
+        <!-- Simple santa hat PNG -->
+        <img class="santa-hat" src="https://pngimg.com/uploads/santa_hat/santa_hat_PNG15.png" alt="Santa hat" />
+      </div>
+
+      <h1>Merry Christmas 🎄</h1>
+      <p class="subtitle">Loading your surprise…</p>
+
+      <div class="loader">
+        <span></span>
+      </div>
+
+      <div class="bottom-text">For all my favourite people ❤️</div>
+    </div>
+
+    <!-- Screen 2: wish message -->
+    <div class="screen hidden" id="screen2">
+      <div class="cloud small"></div>
+      <div class="cloud big"></div>
+
+      <div class="wish-card">
+        <h2>A small wish for you ✨</h2>
+        <p>May your days be cozy,</p>
+        <p>your heart be light,</p>
+        <p>and your dreams shine bright.</p>
+        <p>Thank you for being in my life.</p>
+
+        <div class="signature">
+          Merry Christmas, my friend 🤍
+        </div>
+      </div>
+
+      <div class="bottom-text">Swipe up / close when you finish reading 🎁</div>
+    </div>
+  </div>
+
+  <script>
+    // Change screen after some seconds
+    setTimeout(() => {
+      const s1 = document.getElementById("screen1");
+      const s2 = document.getElementById("screen2");
+      s1.classList.add("hidden");
+      s2.classList.remove("hidden");
+    }, 6000); // 6 seconds
+  </script>
+</body>
+</html>
